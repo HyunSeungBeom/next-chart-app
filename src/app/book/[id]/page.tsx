@@ -1,5 +1,4 @@
 import { fetchWithConfig } from "@/api";
-import { notFound } from "next/navigation";
 import style from "./page.module.css";
 import { BookData, ReviewData } from "@/types";
 import ReviewItem from "@/components/review-item";
@@ -77,15 +76,9 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }): Promise<Metadata | null> {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${params.id}`,
-    { cache: "force-cache" }
-  );
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const book: BookData = await response.json();
+  const book: BookData = await fetchWithConfig(`/book/${params.id}`, {
+    cache: "force-cache",
+  });
 
   return {
     title: `${book.title} - 한입북스`,

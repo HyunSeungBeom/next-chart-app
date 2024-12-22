@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className={style.container}>
+        <div id="root" className={style.container}>
           <header>
             <Link href={"/"}>📚 ONEBITE BOOKS</Link>
           </header>

@@ -16,6 +16,10 @@ export default function Modal({ children }: { children: ReactNode }) {
         top: 0,
       });
     }
+
+    return () => {
+      dialogRef.current?.close();
+    };
   }, []);
 
   return createPortal(
