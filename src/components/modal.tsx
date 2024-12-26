@@ -10,6 +10,8 @@ export default function Modal({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
     if (!dialogRef.current?.open) {
       dialogRef.current?.showModal();
       dialogRef.current?.scrollTo({
@@ -18,6 +20,7 @@ export default function Modal({ children }: { children: ReactNode }) {
     }
 
     return () => {
+      document.body.style.overflow = "unset";
       dialogRef.current?.close();
     };
   }, []);
@@ -26,7 +29,6 @@ export default function Modal({ children }: { children: ReactNode }) {
     <dialog
       onClose={() => router.back()}
       onClick={(e) => {
-        // 모달의 배경이 클릭이된거면 -> 뒤로가기
         if ((e.target as any).nodeName === "DIALOG") {
           router.back();
         }
